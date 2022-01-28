@@ -68,6 +68,10 @@ highlightTheme: "monokai"
 
 </style>
 
+## Introduction to `Go` and comparison with `Python`
+
+---
+
 ## Contents
 
 - Why learn `Go`
