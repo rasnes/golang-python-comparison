@@ -76,7 +76,7 @@ highlightTheme: "monokai"
 
 - Why learn `Go`
 - `Go` selling points
-- `Go` vs `Python``
+- `Go` vs `Python`
 - Concurrency vs parallelism
 - Conclusion
 
