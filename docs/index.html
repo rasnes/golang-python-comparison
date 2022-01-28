@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Reveal JS presentation</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://localhost:65384/libs/reveal.js/4.1.3/reset.css">
+	<link rel="stylesheet" href="http://localhost:65384/libs/reveal.js/4.1.3/reveal.css">
+
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	  <!-- highlight Theme -->
+  	
+	  <link rel="stylesheet" href="http://localhost:65384/libs/highlight.js/11.3.1/styles/monokai.min.css">
+	
+	
+		
+	<link rel="stylesheet" href="http://localhost:65384/libs/reveal.js/4.1.3/plugin/chalkboard/style.css">
+	
+	
+	
+		<link rel="stylesheet" href="http://localhost:65384/libs/reveal.js/4.1.3/plugin/customcontrols/style.css">
+	
+	<link rel="stylesheet" href="http://localhost:65384/libs/styles/tasklist.css">
+
+
+
+  <!-- Revealjs Theme -->
+  
+  	<link rel="stylesheet" href="http://localhost:65384/libs/reveal.js/4.1.3/theme/white.css" id="theme">
+  
+  
+
+
+  <!-- Revealjs Theme -->
+  
+
+ 
+</head>
+
+<body>
+  
+
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      
+
+
+    
+        <section >
+            
+            <style>
+#left {
+	margin: 10px 0 15px 20px;
+	text-align: left;
+	float: left;
+	z-index:-10;
+	width:48%;
+	font-size: 0.75em;
+	line-height: 1.2; 
+}
+
+#right {
+	margin: 10px 0 15px 0;
+	float: right;
+	text-align: left;
+	z-index:-10;
+	width:48%;
+	font-size: 0.75em;
+	line-height: 1.2; 
+}
+
+#left-most {
+	margin: 10px 0 15px 20px;
+	text-align: left;
+	float: left;
+	z-index:-10;
+	width:68%;
+	font-size: 0.85em;
+	line-height: 1.2; 
+}
+
+#right-less {
+	margin: 10px 0 15px 0;
+	float: right;
+	text-align: left;
+	z-index:-10;
+	width:28%;
+	font-size: 0.85em;
+	line-height: 1.2; 
+}
+
+#left-less {
+	margin: 10px 0 15px 20px;
+	text-align: left;
+	float: left;
+	z-index:-10;
+	width:43%;
+	font-size: 0.85em;
+	line-height: 1.2; 
+}
+
+#right-less {
+	margin: 10px 0 15px 0;
+	float: right;
+	text-align: left;
+	z-index:-10;
+	width: 53%;
+	font-size: 0.85em;
+	line-height: 1.2; 
+}
+
+
+
+</style>
+<h2>Contents</h2>
+<ul>
+<li>Go: concurrency, OOP (interface), strongly typed, speed, runtime, history, deliberately boring, few keywords, somewhat verbose (example no ternary operator, for loop), imperative but with first-class function support. Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler. Standard library: testing, net/http</li>
+<li>Python: GIL, age of language (compare to C, C++, Java, Rust), Zen of Python: There should be only way of doing it…</li>
+<li>Go controversial design decisions: error handling, no generics (until February!)</li>
+<li>Concurrency vs Parallelism</li>
+<li>Go arguments: embraced by CoopX, great backend language; Kubernetes, Docker</li>
+<li>Go Python interop, using C bindings.</li>
+<li>Go vs Rust - modern languages compared</li>
+<li>Go cons: Data Science tooling, no REPL</li>
+<li>References: Learning Go,</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>Why learn <code>Go</code>?</h2>
+<div id="left-most">
+<ul>
+<li>Great for backend development</li>
+<li>Maintained by Google, great support in Google Cloud Platform</li>
+<li><code>CoopX</code> preferred language <br> (together with <code>Python</code>)</li>
+<li>Powerful concurrency tools</li>
+<li>Relatively easy to learn</li>
+</ul>
+</div>
+<div id="right-less">
+<p><img src="images/gopher.png" alt=""></p>
+</div>
+            </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h1><code>Go</code> selling points</h1>
+<ul>
+<li>speed (compare with Python)</li>
+<li>concurrency (compare with Python)
+<ul>
+<li>Concurrency vs Parallellism</li>
+</ul>
+</li>
+<li>Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler.</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h2>Ambitions / Design goals</h2>
+<ul>
+<li>Onboard new developers quickly
+<ul>
+<li>Imperative (familiar to most)</li>
+<li>Small language</li>
+<li>Easy-to-read syntax</li>
+</ul>
+</li>
+<li></li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h2>Static type checking</h2>
+<div id="left">
+<p><code>python</code> is duck-typed by nature, but <code>mypy</code> can help.</p>
+<pre><code class="language-python">class Logic:
+		def process(self, data):
+				# business logic
+
+def program(logic):
+	  # get data from somewhere
+		logic.process(data)
+
+lgc = Logic()
+program(lgc)
+</code></pre>
+</div>
+<div id="right">
+<p><code>go</code> uses <code>interface</code>s instead of <code>class</code>es. No inheritance.</p>
+<pre><code class="language-go">type Logic interface {
+	Process(data string)
+}
+func program(l Logic) {
+	// get data from somewhere
+	l.process(data)
+}
+//Any type implementing a Process
+//method complies with Logic interface
+type lgc struct {}
+// Implement method Process on lgc
+func (lg log) Process(data string) {
+		// business logic
+}
+
+// Compile time error if not `lgc`
+// implements the Process method!
+program(lgc)
+</code></pre>
+</div>
+            </section>
+        
+            <section >
+                <h2>Compile time</h2>
+<div id="left">
+<p>Blazingly fast compiler</p>
+<p>Compared to “all” other compiled languages, like <code>Java</code>, <code>C</code>, <code>C++</code>, <code>Rust</code></p>
+<p>Enables rapid prototyping and development</p>
+</div>
+<div id="right">
+<p><img src="images/compiling.png" alt=""></p>
+</div>
+            </section>
+        
+            <section >
+                <h2><code>Go</code> is fast</h2>
+<p>Comparable to <code>Java</code> and <code>C</code>.</p>
+<p>No need for “glue code”, to faster languages.</p>
+<p>“Pure” <code>Python</code> is slow in comparison, but calling <code>C</code>/<code>C++</code> code with e.g. <code>numpy</code> or <code>pyTorch</code> gives comparable speeds.</p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h2><code>Go</code> vs <code>Python</code></h2>
+<p>Why and when would you consider using <code>Go</code> instead of <code>Python</code>?</p>
+
+            </section>
+        
+            <section >
+                <h2><code>Go</code> vs <code>Python</code> - concurrency</h2>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+        <section >
+            
+            <h4>Example of two-column layout with syntax highlighting</h4>
+<p>Some text. Strange that bullets get “caught” in the divs.</p>
+<div id="left">
+<p><code>python:</code></p>
+<pre><code class="language-python">def bar(a, b):
+    return a + b
+</code></pre>
+<ul>
+<li>list</li>
+<li>yes</li>
+</ul>
+</div>
+<div id="right">
+<p><code>go:</code></p>
+<pre><code class="language-go">func foo(a, b int) int {
+  return a + b
+}
+</code></pre>
+<ol>
+<li>ordered</li>
+<li>indeed</li>
+</ol>
+</div>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>Themes</h2>
+<p>reveal.js comes with a few themes built in:
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/black.css'); return false;">Black (default)</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/white.css'); return false;">White</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/league.css'); return false;">League</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/sky.css'); return false;">Sky</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/beige.css'); return false;">Beige</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/simple.css'); return false;">Simple</a> <br>
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/serif.css'); return false;">Serif</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/blood.css'); return false;">Blood</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/night.css'); return false;">Night</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/moon.css'); return false;">Moon</a> -
+<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/solarized.css'); return false;">Solarized</a></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <p>Is it gone now?</p>
+<aside class="notes"> some hnotes here. How can I see them?</aside>
+
+            </section>
+    
+
+
+    </div>
+
+
+  </div>
+
+  	
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/reveal.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/zoom/zoom.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/notes/notes.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/search/search.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/markdown/markdown.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/highlight/highlight.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/menu/menu.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/math/math.js"></script>
+
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/fullscreen/plugin.js"></script>
+  
+  	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/animate/plugin.js"></script>
+  	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/animate/svg.min.js"></script>
+  
+  	 <!--	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/anything/plugin.js"></script> -->
+
+ <!--	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/audio-slideshow/plugin.js"></script>  -->
+<!--	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/audio-slideshow/recorder.js"></script>-->
+<!--	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/audio-slideshow/RecordRTC.js"></script>-->
+
+
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/customcontrols/plugin.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/embed-tweet/plugin.js"></script>
+
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/chart/chart.min.js"></script>
+	<script src="http://localhost:65384/libs/reveal.js/4.1.3/plugin/chart/plugin.js"></script>
+
+  <script>
+
+		const printPlugins = [
+			RevealNotes, 
+			RevealHighlight,
+			RevealMath,
+			RevealAnimate,
+			
+			RevealEmbedTweet,
+			RevealChart,
+		];
+
+		const plugins =  [...printPlugins,
+		RevealZoom, 
+		RevealSearch, 
+				RevealMarkdown, 
+				RevealMenu, 
+				RevealFullscreen,
+				//RevealAnything,
+				//RevealAudioSlideshow,
+				//RevealAudioRecorder,
+				RevealCustomControls, 
+				// poll
+				// question
+				// seminar
+				 ]
+
+
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+			controlsTutorial: true,
+			controlsLayout: 'bottom-right',
+			controlsBackArrows: 'faded',
+			progress: true,
+			slideNumber: false,
+			//#showSlideNumber "all" "print" "speaker"
+			hash: true,//#  hash: false,
+			//# respondToHashChanges: true,
+			//# history: false,
+			keyboard: true,
+			//#keyboardCondition: null,
+			overview: true,
+			center: false,
+			touch: true,
+			loop: false,
+			rtl: false,
+			//#navigationMode: 'default', linear grid
+			shuffle: false,
+			fragments: true,
+			fragmentInURL: false,
+			embedded: false,
+			help: true,
+			//#pause: true
+			showNotes: false,
+			autoPlayMedia: false, // TODO fix this to a nullable value
+			//#preloadIframes: null. true false
+			//#autoAnimate: true
+			//#autoAnimateMatcher: null,
+			//#autoAnimateEasing: 'ease',
+			//autoAnimateDuration: 1.0,
+			//#autoAnimateUnmatched: true
+			//#autoAnimateStyles: []
+			autoSlide: 0, // TODO fix this to a falseable value
+			autoSlideStoppable: true,
+			autoSlideMethod: '0',
+			defaultTiming: 120,
+			mouseWheel: false,
+			//#previewLinks: false
+			//#postMessage: true,  // TODO : this can cause issues with the vscode api ???
+			//#postMessageEvents: false,
+			//#focusBodyOnPageVisibilityChange: true,
+			transition: 'slide',
+			transitionSpeed: 'default',
+			backgroundTransition: 'fade',
+			//#pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
+			//#pdfSeparateFragments: true,
+			//#pdfPageHeightOffset: -1,
+			viewDistance: 3,
+			//#mobileViewDistance: 2,
+			display: 'block',
+			//#hideInactiveCursor: true,
+			//#hideCursorTime: 5000
+
+			// Parallax Background
+			parallaxBackgroundImage: '',
+			parallaxBackgroundSize: '',
+			parallaxBackgroundHorizontal: 0,
+			parallaxBackgroundVertical: 0,
+			
+			//Presentation Size
+			width: 960,
+			height: 700,
+			margin: 0.04,
+			minScale: 0.2,
+			maxScale: 2,
+			disableLayout: false,
+
+			audio: {
+				prefix: 'audio/', 	// audio files are stored in the "audio" folder
+				suffix: '.ogg',		// audio files have the ".ogg" ending
+				textToSpeechURL: null,  // the URL to the text to speech converter
+				defaultNotes: false, 	// use slide notes as default for the text to speech converter
+				defaultText: false, 	// use slide text as default for the text to speech converter
+				advance: 0, 		// advance to next slide after given time in milliseconds after audio has played, use negative value to not advance
+				autoplay: false,	// automatically start slideshow
+				defaultDuration: 5,	// default duration in seconds if no audio is available
+				defaultAudios: true,	// try to play audios with names such as audio/1.2.ogg
+				playerOpacity: 0.05,	// opacity value of audio player if unfocused
+				playerStyle: 'position: fixed; bottom: 4px; left: 25%; width: 50%; height:75px; z-index: 33;', // style used for container of audio controls
+				startAtFragment: false, // when moving to a slide, start at the current fragment or at the start of the slide
+			},
+			
+			customcontrols: {
+					controls: [
+      						{
+						  id: 'toggle-overview',
+						  title: 'Toggle overview (O)',
+						  icon: '<i class="fa fa-th"></i>',
+						  action: 'Reveal.toggleOverview();'
+						}
+						
+				]
+			},
+			chart: {
+					defaults: { 
+						color: 'lightgray', // color of labels
+						scale: { 
+							beginAtZero: true, 
+							ticks: { stepSize: 1 },
+							grid: { color: "lightgray" } , // color of grid lines
+						},
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ] }, 
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+			},
+			math: {
+				mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				// pass other options into `MathJax.Hub.Config()`
+				TeX: { Macros: { RR: "{\\bf R}" } }
+				},
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: (window.location.search.match(/print-pdf/gi) ? printPlugins : plugins ) 
+		});
+			
+
+
+	    // Change chalkboard theme : 
+		function changeTheme(input) {
+			var config = {};
+			config.theme = input.value;
+			Reveal.getPlugin("RevealChalkboard").configure(config);
+			input.blur();
+		}
+
+		// // Handle the message inside the webview
+        // window.addEventListener('message', event => {
+
+        //     const message = event.data; // The JSON data our extension sent
+
+        //     switch (message.command) {
+        //         case 'refactor':
+        //             Reveal.toggleHelp();
+        //     }
+        // });
+
+		if (window.location.search.match(/print-pdf-now/gi)) {
+      		setTimeout(() => {
+				window.print();
+			  }, 2500);
+			
+    }
+		
+
+	</script>
+
+</body>
+
+</html>
