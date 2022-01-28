@@ -10,7 +10,7 @@ highlightTheme: "monokai"
 	float: left;
 	z-index:-10;
 	width:48%;
-	font-size: 0.75em;
+	font-size: 0.7em;
 	line-height: 1.2; 
 }
 
@@ -20,7 +20,7 @@ highlightTheme: "monokai"
 	text-align: left;
 	z-index:-10;
 	width:48%;
-	font-size: 0.75em;
+	font-size: 0.7em;
 	line-height: 1.2; 
 }
 
@@ -29,7 +29,7 @@ highlightTheme: "monokai"
 	text-align: left;
 	float: left;
 	z-index:-10;
-	width:68%;
+	width: 64%;
 	font-size: 0.85em;
 	line-height: 1.2; 
 }
@@ -39,7 +39,7 @@ highlightTheme: "monokai"
 	float: right;
 	text-align: left;
 	z-index:-10;
-	width:28%;
+	width: 32%;
 	font-size: 0.85em;
 	line-height: 1.2; 
 }
@@ -54,7 +54,7 @@ highlightTheme: "monokai"
 	line-height: 1.2; 
 }
 
-#right-less {
+#right-most {
 	margin: 10px 0 15px 0;
 	float: right;
 	text-align: left;
@@ -70,8 +70,17 @@ highlightTheme: "monokai"
 
 ## Contents
 
-- Go: concurrency, OOP (interface), strongly typed, speed, runtime, history, deliberately boring, few keywords, somewhat verbose (example no ternary operator, for loop), imperative but with first-class function support. Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler. Standard library: testing, net/http
-- Python: GIL, age of language (compare to C, C++, Java, Rust), Zen of Python: There should be only way of doing it..
+- Why learn `Go`
+- `Go` selling points
+- `Go` vs `Python``
+- Concurrency vs parallelism
+- Conclusion
+
+<!---
+- Go: concurrency, speed, runtime, history,  imperative but with first-class function support. Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler. Standard library: testing, net/http
+- Python: GIL, age of language (compare to C, C++, Java, Rust), 
+	- Zen of Python: There should be only way of doing it.. go fmt.
+	- deliberately boring, few keywords, somewhat verbose (example no ternary operator, for loop),
 - Go controversial design decisions: error handling, no generics (until February!)
 - Concurrency vs Parallelism
 - Go arguments: embraced by CoopX, great backend language; Kubernetes, Docker
@@ -79,6 +88,8 @@ highlightTheme: "monokai"
 - Go vs Rust - modern languages compared
 - Go cons: Data Science tooling, no REPL
 - References: Learning Go,
+--->
+
 
 ---
 
@@ -91,6 +102,7 @@ highlightTheme: "monokai"
 - `CoopX` preferred language <br> (together with `Python`)
 - Powerful concurrency tools
 - Relatively easy to learn
+- Learning another language is likely to make you a better `Python` programmer.
 
 </div>
 
@@ -104,21 +116,19 @@ highlightTheme: "monokai"
 
 # `Go` selling points 
 
-- speed (compare with Python)
-- concurrency (compare with Python)
-	- Concurrency vs Parallellism
-- Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler.
-
 --
 
 ## Ambitions / Design goals
 
 - Onboard new developers quickly
 	- Imperative (familiar to most)
-	- Small language
 	- Easy-to-read syntax
-- 
-
+- Good choice for large software projects
+	- Simple, small, "boring" language
+	- Powerful developer tooling
+- Fast execution, low memory footprint
+- Runs natively on any platform
+	- Cross compiles with is own runtime embedded
 
 --
 
@@ -199,75 +209,209 @@ No need for "glue code", to faster languages.
 
 "Pure" `Python` is slow in comparison, but calling `C`/`C++` code with e.g. `numpy` or `pyTorch` gives comparable speeds.
 
+--
+
+## `Go` is small, simple, "boring"
+
+<div id="left">
+
+From the [Zen of Python](https://www.python.org/dev/peps/pep-0020/): <br>
+`There should be one - and preferably only one - obvious way to do it.`
+
+But `Python` has become a large language, not really conforming to this goal.
+
+</div>
+
+
+<div id="right">
+
+`Go`, however, seems much closer to such a goal. 
+
+- deliberately small (only 25 keywords)
+- standard formatting tool [gofmt](https://go.dev/blog/gofmt)
+
+
+</div>
+
+--
+
+#### `Go` is small, simple, "boring" example
+
+Square a list of integers and find the sum.
+
+<div id="left">
+
+`python`
+
+```python
+l = [1, 2, 3, 4, 5]
+
+s0 = 0
+for x in l:
+  s0 += x**2
+
+s1 = sum(x**2 for x in l)
+
+from functools import reduce
+s2 = reduce(lambda x1, x2: x1 + x2, 
+            map(lambda y: y**2, l))
+
+assert(s0 == s1 == s2)
+```
+
+</div>
+
+
+<div id="right">
+
+`go`
+
+```go
+l := []int{1, 2, 3, 4, 5}
+
+func sumOfSquares(nums []int) int {
+	sum := 0
+	for _, num := range nums {
+		sum += num * num
+	}
+	return sum
+}
+
+s0 := sumOfSquares(l)
+
+//Simplified: This is THE way to do it.
+```
+
+</div>
+
+
 ---
 
 ## `Go` vs `Python`
 
 Why and when would you consider using `Go` instead of `Python`?
 
+- speed (compare with Python)
+- concurrency (compare with Python)
+	- Concurrency vs Parallellism
+
+--
+
+## `Go` vs `Python` - data science
+
+- The Data Science tooling of `Go` is immature
+	- And is probably not as well suited language as `Python` and `R` for most data science work.
+- No REPL, i.e. no notebooks
+
+**Bottom line**: Not really the language I'd choose for data science.
+
 --
 
 ## `Go` vs `Python` - concurrency
 
-
-
----
-
-#### Example of two-column layout with syntax highlighting
-
-Some text. Strange that bullets get "caught" in the divs.
-
 <div id="left">
 
-`python:`
+`Python` has a major design "flaw" wrt. concurrency and parallelism: the *Global Interpreter Lock* (GIL). Concurrent and parallell computations in Python has to "hack" it's way around this limitation, or call another language (like `PyTorch` does).
 
-```python
-def bar(a, b):
-    return a + b
-```
+Go, on the other hand, is designed _for_ concurrency. It's easy to use, and compiler will help you catch race conditions. 
 
-- list
-- yes
 
 </div>
 
 <div id="right">
 
-`go:`
-
-```go
-func foo(a, b int) int {
-  return a + b
-}
-```
-
-1. ordered
-2. indeed
+!["not found"](images/concurrency_vs_parallellism1.jpeg)
+!["not found"](images/concurrency_vs_parallellism2.jpeg)
 
 </div>
 
+--
+
+## Concurrency vs Parallelism
+
+<div id="left">
+ 
+Concurrency: useful when functions are IO or CPU bound.
+
+E.g. making an REST API request, which is usually IO bound. If not concurrency enabled, IO bound means the CPU has to wait for the returned data before it can proceed. This is the general case in Python.
+
+In `Go` it is very easy to make hundreds of thousands of concurrent `goroutines`!
+
+</div>
+
+<div id="right">
+
+!["not found"](images/concurrency_vs_parallellism1.jpeg)
+!["not found"](images/concurrency_vs_parallellism2.jpeg)
+
+</div>
+
+--
+
+`Go` vs `Python` - generics
+
+<div id="left">
+
+`python`
+
+```python
+
+def concat(a, b):
+		return a + b
+
+concat(1, 2) # 3
+concat("a", "b") # "ab"
+```
+
+</div>
+
+
+<div id="right">
+
+`go`
+
+```go
+func concatString(a, b string) string {
+	return a + b
+}
+
+func concatNums(a, b int) int {
+	return a + b
+}
+
+// Must be implemented for all types!
+```
+
+Until now, `Go` 1.18 will be released in February with Generics.
+
+Show some code!
+
+</div>
+
+--
+
+## `Go` vs `Python` - interop
+
+`Go` has full `C` interop support
+
+You can compile `Go` code to a `C` binary, which one could easily call from Python. See e.g. this [blog post](https://www.ardanlabs.com/blog/2020/07/extending-python-with-go.html) for how one could do it.
+
+**Use cases**:
+- Use `Go` for concurrency, e.g. scrape thousands of web pages quickly.
+- Use `Go` for parallell computations.
+- Use `Python` for anything data science, in a `Go` API.
+
 ---
 
+## Conclusion
 
-## Themes
+Should you learn `Go`? Not sure :D
 
-reveal.js comes with a few themes built in:
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/black.css'); return false;">Black (default)</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/white.css'); return false;">White</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/league.css'); return false;">League</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/sky.css'); return false;">Sky</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/beige.css'); return false;">Beige</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/simple.css'); return false;">Simple</a> <br>
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/serif.css'); return false;">Serif</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/blood.css'); return false;">Blood</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/night.css'); return false;">Night</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/moon.css'); return false;">Moon</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/solarized.css'); return false;">Solarized</a>
+If you like to learn more programming, go for it! It's a nice, useful language. 
+
+SQL, Python, and potentially R, is more relevant for data science/analytics.
 
 
----
+References:
 
-Is it gone now?
-
-note: some hnotes here. How can I see them?
-
+- Book: [Learning Go](https://www.amazon.com/Learning-Go-Idiomatic-Real-World-Programming/dp/1492077216)

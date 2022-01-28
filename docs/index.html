@@ -72,7 +72,7 @@
 	float: left;
 	z-index:-10;
 	width:48%;
-	font-size: 0.75em;
+	font-size: 0.7em;
 	line-height: 1.2; 
 }
 
@@ -82,7 +82,7 @@
 	text-align: left;
 	z-index:-10;
 	width:48%;
-	font-size: 0.75em;
+	font-size: 0.7em;
 	line-height: 1.2; 
 }
 
@@ -91,7 +91,7 @@
 	text-align: left;
 	float: left;
 	z-index:-10;
-	width:68%;
+	width: 64%;
 	font-size: 0.85em;
 	line-height: 1.2; 
 }
@@ -101,7 +101,7 @@
 	float: right;
 	text-align: left;
 	z-index:-10;
-	width:28%;
+	width: 32%;
 	font-size: 0.85em;
 	line-height: 1.2; 
 }
@@ -116,7 +116,7 @@
 	line-height: 1.2; 
 }
 
-#right-less {
+#right-most {
 	margin: 10px 0 15px 0;
 	float: right;
 	text-align: left;
@@ -131,17 +131,25 @@
 </style>
 <h2>Contents</h2>
 <ul>
-<li>Go: concurrency, OOP (interface), strongly typed, speed, runtime, history, deliberately boring, few keywords, somewhat verbose (example no ternary operator, for loop), imperative but with first-class function support. Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler. Standard library: testing, net/http</li>
-<li>Python: GIL, age of language (compare to C, C++, Java, Rust), Zen of Python: There should be only way of doing it…</li>
-<li>Go controversial design decisions: error handling, no generics (until February!)</li>
-<li>Concurrency vs Parallelism</li>
-<li>Go arguments: embraced by CoopX, great backend language; Kubernetes, Docker</li>
-<li>Go Python interop, using C bindings.</li>
-<li>Go vs Rust - modern languages compared</li>
-<li>Go cons: Data Science tooling, no REPL</li>
-<li>References: Learning Go,</li>
+<li>Why learn <code>Go</code></li>
+<li><code>Go</code> selling points</li>
+<li><code>Go</code> vs `Python``</li>
+<li>Concurrency vs parallelism</li>
+<li>Conclusion</li>
 </ul>
-
+<!---
+- Go: concurrency, speed, runtime, history,  imperative but with first-class function support. Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler. Standard library: testing, net/http
+- Python: GIL, age of language (compare to C, C++, Java, Rust), 
+	- Zen of Python: There should be only way of doing it.. go fmt.
+	- deliberately boring, few keywords, somewhat verbose (example no ternary operator, for loop),
+- Go controversial design decisions: error handling, no generics (until February!)
+- Concurrency vs Parallelism
+- Go arguments: embraced by CoopX, great backend language; Kubernetes, Docker
+- Go Python interop, using C bindings.
+- Go vs Rust - modern languages compared
+- Go cons: Data Science tooling, no REPL
+- References: Learning Go,
+--->
             </section>
     
 
@@ -158,6 +166,7 @@
 <li><code>CoopX</code> preferred language <br> (together with <code>Python</code>)</li>
 <li>Powerful concurrency tools</li>
 <li>Relatively easy to learn</li>
+<li>Learning another language is likely to make you a better <code>Python</code> programmer.</li>
 </ul>
 </div>
 <div id="right-less">
@@ -172,15 +181,6 @@
     <section>
         <section >
             <h1><code>Go</code> selling points</h1>
-<ul>
-<li>speed (compare with Python)</li>
-<li>concurrency (compare with Python)
-<ul>
-<li>Concurrency vs Parallellism</li>
-</ul>
-</li>
-<li>Ambition: get developers unfamiliar with the language up to speed quickly, easy to read others code and easier to maintain large codebases, go fmt. fast compiler.</li>
-</ul>
 
             </section>
         
@@ -190,11 +190,21 @@
 <li>Onboard new developers quickly
 <ul>
 <li>Imperative (familiar to most)</li>
-<li>Small language</li>
 <li>Easy-to-read syntax</li>
 </ul>
 </li>
-<li></li>
+<li>Good choice for large software projects
+<ul>
+<li>Simple, small, “boring” language</li>
+<li>Powerful developer tooling</li>
+</ul>
+</li>
+<li>Fast execution, low memory footprint</li>
+<li>Runs natively on any platform
+<ul>
+<li>Cross compiles with is own runtime embedded</li>
+</ul>
+</li>
 </ul>
 
             </section>
@@ -259,6 +269,61 @@ program(lgc)
 
             </section>
         
+            <section >
+                <h2><code>Go</code> is small, simple, “boring”</h2>
+<div id="left">
+<p>From the <a href="https://www.python.org/dev/peps/pep-0020/">Zen of Python</a>: <br>
+<code>There should be one - and preferably only one - obvious way to do it.</code></p>
+<p>But <code>Python</code> has become a large language, not really conforming to this goal.</p>
+</div>
+<div id="right">
+<p><code>Go</code>, however, seems much closer to such a goal.</p>
+<ul>
+<li>deliberately small (only 25 keywords)</li>
+<li>standard formatting tool <a href="https://go.dev/blog/gofmt">gofmt</a></li>
+</ul>
+</div>
+            </section>
+        
+            <section >
+                <h4><code>Go</code> is small, simple, “boring” example</h4>
+<p>Square a list of integers and find the sum.</p>
+<div id="left">
+<p><code>python</code></p>
+<pre><code class="language-python">l = [1, 2, 3, 4, 5]
+
+s0 = 0
+for x in l:
+  s0 += x**2
+
+s1 = sum(x**2 for x in l)
+
+from functools import reduce
+s2 = reduce(lambda x1, x2: x1 + x2, 
+            map(lambda y: y**2, l))
+
+assert(s0 == s1 == s2)
+</code></pre>
+</div>
+<div id="right">
+<p><code>go</code></p>
+<pre><code class="language-go">l := []int{1, 2, 3, 4, 5}
+
+func sumOfSquares(nums []int) int {
+	sum := 0
+	for _, num := range nums {
+		sum += num * num
+	}
+	return sum
+}
+
+s0 := sumOfSquares(l)
+
+//Simplified: This is THE way to do it.
+</code></pre>
+</div>
+            </section>
+        
 
     </section>
     
@@ -270,11 +335,95 @@ program(lgc)
         <section >
             <h2><code>Go</code> vs <code>Python</code></h2>
 <p>Why and when would you consider using <code>Go</code> instead of <code>Python</code>?</p>
+<ul>
+<li>speed (compare with Python)</li>
+<li>concurrency (compare with Python)
+<ul>
+<li>Concurrency vs Parallellism</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h2><code>Go</code> vs <code>Python</code> - data science</h2>
+<ul>
+<li>The Data Science tooling of <code>Go</code> is immature
+<ul>
+<li>And is probably not as well suited language as <code>Python</code> and <code>R</code> for most data science work.</li>
+</ul>
+</li>
+<li>No REPL, i.e. no notebooks</li>
+</ul>
+<p><strong>Bottom line</strong>: Not really the language I’d choose for data science.</p>
 
             </section>
         
             <section >
                 <h2><code>Go</code> vs <code>Python</code> - concurrency</h2>
+<div id="left">
+<p><code>Python</code> has a major design “flaw” wrt. concurrency and parallelism: the <em>Global Interpreter Lock</em> (GIL). Concurrent and parallell computations in Python has to “hack” it’s way around this limitation, or call another language (like <code>PyTorch</code> does).</p>
+<p>Go, on the other hand, is designed <em>for</em> concurrency. It’s easy to use, and compiler will help you catch race conditions.</p>
+</div>
+<div id="right">
+<p><img src="images/concurrency_vs_parallellism1.jpeg" alt="&quot;not found&quot;">
+<img src="images/concurrency_vs_parallellism2.jpeg" alt="&quot;not found&quot;"></p>
+</div>
+            </section>
+        
+            <section >
+                <h2>Concurrency vs Parallelism</h2>
+<div id="left">
+<p>Concurrency: useful when functions are IO or CPU bound.</p>
+<p>E.g. making an REST API request, which is usually IO bound. If not concurrency enabled, IO bound means the CPU has to wait for the returned data before it can proceed. This is the general case in Python.</p>
+<p>In <code>Go</code> it is very easy to make hundreds of thousands of concurrent <code>goroutines</code>!</p>
+</div>
+<div id="right">
+<p><img src="images/concurrency_vs_parallellism1.jpeg" alt="&quot;not found&quot;">
+<img src="images/concurrency_vs_parallellism2.jpeg" alt="&quot;not found&quot;"></p>
+</div>
+            </section>
+        
+            <section >
+                <p><code>Go</code> vs <code>Python</code> - generics</p>
+<div id="left">
+<p><code>python</code></p>
+<pre><code class="language-python">
+def concat(a, b):
+		return a + b
+
+concat(1, 2) # 3
+concat(&quot;a&quot;, &quot;b&quot;) # &quot;ab&quot;
+</code></pre>
+</div>
+<div id="right">
+<p><code>go</code></p>
+<pre><code class="language-go">func concatString(a, b string) string {
+	return a + b
+}
+
+func concatNums(a, b int) int {
+	return a + b
+}
+
+// Must be implemented for all types!
+</code></pre>
+<p>Until now, <code>Go</code> 1.18 will be released in February with Generics.</p>
+<p>Show some code!</p>
+</div>
+            </section>
+        
+            <section >
+                <h2><code>Go</code> vs <code>Python</code> - interop</h2>
+<p><code>Go</code> has full <code>C</code> interop support</p>
+<p>You can compile <code>Go</code> code to a <code>C</code> binary, which one could easily call from Python. See e.g. this <a href="https://www.ardanlabs.com/blog/2020/07/extending-python-with-go.html">blog post</a> for how one could do it.</p>
+<p><strong>Use cases</strong>:</p>
+<ul>
+<li>Use <code>Go</code> for concurrency, e.g. scrape thousands of web pages quickly.</li>
+<li>Use <code>Go</code> for parallell computations.</li>
+<li>Use <code>Python</code> for anything data science, in a <code>Go</code> API.</li>
+</ul>
 
             </section>
         
@@ -287,61 +436,14 @@ program(lgc)
     
         <section >
             
-            <h4>Example of two-column layout with syntax highlighting</h4>
-<p>Some text. Strange that bullets get “caught” in the divs.</p>
-<div id="left">
-<p><code>python:</code></p>
-<pre><code class="language-python">def bar(a, b):
-    return a + b
-</code></pre>
+            <h2>Conclusion</h2>
+<p>Should you learn <code>Go</code>? Not sure :D</p>
+<p>If you like to learn more programming, go for it! It’s a nice, useful language.</p>
+<p>SQL, Python, and potentially R, is more relevant for data science/analytics.</p>
+<p>References:</p>
 <ul>
-<li>list</li>
-<li>yes</li>
+<li>Book: <a href="https://www.amazon.com/Learning-Go-Idiomatic-Real-World-Programming/dp/1492077216">Learning Go</a></li>
 </ul>
-</div>
-<div id="right">
-<p><code>go:</code></p>
-<pre><code class="language-go">func foo(a, b int) int {
-  return a + b
-}
-</code></pre>
-<ol>
-<li>ordered</li>
-<li>indeed</li>
-</ol>
-</div>
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2>Themes</h2>
-<p>reveal.js comes with a few themes built in:
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/black.css'); return false;">Black (default)</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/white.css'); return false;">White</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/league.css'); return false;">League</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/sky.css'); return false;">Sky</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/beige.css'); return false;">Beige</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/simple.css'); return false;">Simple</a> <br>
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/serif.css'); return false;">Serif</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/blood.css'); return false;">Blood</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/night.css'); return false;">Night</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/moon.css'); return false;">Moon</a> -
-<a href="#" onclick="document.getElementById('theme').setAttribute('href','libs/reveal.js/3.8.0/css/theme/solarized.css'); return false;">Solarized</a></p>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <p>Is it gone now?</p>
-<aside class="notes"> some hnotes here. How can I see them?</aside>
 
             </section>
     
